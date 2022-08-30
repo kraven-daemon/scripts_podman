@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+set -eu
+IFS=$(printf ' \n\t')
+
+################################################################################
+# installation for ROOTLESS containers
+## slirp4netns : User-mode networking for unprivileged network namespaces
+## fuse-overlayfs : FilsysteminUSErspace implementation of overlayfs
+## netavark : the first piece of the new network stack => https://www.redhat.com/sysadmin/podman-new-network-stack
+## aardvark-dns : the second piece, dns-server
+
+# pacman -S podman \
+#     slirp4netns \
+#     fuse-overlayfs \
+#     netavark \
+#     aardvark-dns
+
+
+# TODO: https://opensource.com/article/19/10/namespaces-and-containers-linux
+# tomorrow, a lot in namespace i dont know
+validate_namespace(){
+    namespaces="$(sysctl -n user.max_user_namespaces)"
+    if [ "$namespaces" -gt 15000 ]
+    then
+        echo "User namespaces limit: $namespaces"
+    else
+        echo "Augmenting user namespaces limit to DEFINE"
+        sysctl user.max_user_namespaces=50000
+    fi
+}
+
