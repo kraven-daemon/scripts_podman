@@ -16,7 +16,7 @@ IFS=$(printf ' \n\t')
 #     netavark \
 #     aardvark-dns
 
-# https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md
+
 # TODO: https://opensource.com/article/19/10/namespaces-and-containers-linux
 # tomorrow, a lot in namespace i dont know
 validate_namespace(){
@@ -29,4 +29,3 @@ validate_namespace(){
         sysctl user.max_user_namespaces=50000
     fi
 }
-
